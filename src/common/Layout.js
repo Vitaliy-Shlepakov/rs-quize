@@ -8,6 +8,10 @@ const Container = styled.div`
 
 const Row = styled.div`
     display: flex;
+    
+    & + & {
+      margin-top: 50px;
+    }
 `;
 
 const Column = styled.div`

@@ -5,7 +5,7 @@ import styled from "styled-components";
 type BoxProps = {
   className?: string;
   onClick: () => void;
-  active: boolean;
+  active?: boolean;
 };
 
 
@@ -25,7 +25,7 @@ const Box: React.FC<BoxProps> = ({
 const StyledBox = styled(Box)`
   background: #fff;
   border-radius: 16px;
-  padding: 20px;
+  padding: 40px 20px;
   overflow: hidden;
   text-align: center;
   box-shadow: -2px 0px 12px 0px rgba(34, 60, 80, 0.2);

@@ -8,6 +8,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
+import background from './images/background.jpg'
 
 function App() {
     return (
@@ -24,8 +25,9 @@ function App() {
 };
 
 const StyledApp = styled.div`
-    background: #ddd;
+    background: #eee;
     min-height: 100vh;
 `;
 
 export default App;
+
