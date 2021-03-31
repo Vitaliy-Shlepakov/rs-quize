@@ -20,7 +20,6 @@ import {
   Box,
   BackNav
 } from "../components";
-import {qualifiedTypeIdentifier} from "@babel/types";
 
 type HomeProps = {
   className?: string
@@ -264,7 +263,6 @@ const StyledHome = styled(Home)`
     
     .column{
       width: 33.3%;
-      max-width: 800px;
       transition: all .5s;
     }
     
