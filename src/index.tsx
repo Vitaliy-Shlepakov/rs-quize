@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {GlobalProvider} from "./reducer";
+import {GlobalProvider} from "./reducer/reducer";
 
 ReactDOM.render(
   <React.StrictMode>

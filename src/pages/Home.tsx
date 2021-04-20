@@ -15,7 +15,7 @@ import {ReactComponent as Nodejs} from './icons/nodejs.svg';
 import {ReactComponent as Ruby} from './icons/ruby.svg';
 import {ReactComponent as Php} from './icons/php.svg';
 import arrow from './icons/right-drawn-arrow.svg';
-import {GlobalContext} from '../reducer/index'
+import {GlobalContext} from '../reducer/reducer'
 import {
   Title,
   Box,
@@ -26,7 +26,6 @@ import { setProfession, setQualification, setTools } from '../reducer/action-cre
 type HomeProps = {
   className?: string
 }
-
 
 const Home: React.FC<HomeProps> = ({className}) => {
 

@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0 auto;
     }
     
-   svg {
+   svg, img {
     max-width: 100%;
     height: auto;
    }
