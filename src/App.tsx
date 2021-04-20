@@ -15,7 +15,7 @@ function App() {
         <StyledApp>
             <Router>
                 <Switch>
-                    <Route path="/quiz" component={Quiz} exact/>
+                    <Route path="/testing" component={Quiz} exact/>
                     <Route path="/" component={Home} exact/>
                 </Switch>
             </Router>

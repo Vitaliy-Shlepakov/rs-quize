@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Column, Container, Row} from '../common/Layout';
 import {Link} from 'react-router-dom';
 import styled from "styled-components";
@@ -15,11 +15,13 @@ import {ReactComponent as Nodejs} from './icons/nodejs.svg';
 import {ReactComponent as Ruby} from './icons/ruby.svg';
 import {ReactComponent as Php} from './icons/php.svg';
 import arrow from './icons/right-drawn-arrow.svg';
+import {GlobalContext} from '../reducer/index'
 import {
   Title,
   Box,
   BackNav
 } from "../components";
+import { setProfession, setQualification, setTools } from '../reducer/action-creators'
 
 type HomeProps = {
   className?: string
@@ -28,17 +30,23 @@ type HomeProps = {
 
 const Home: React.FC<HomeProps> = ({className}) => {
 
-  const [profession, setProfession] = useState<null | string>(null);
-  const [qualification, setQualification] = useState<null | string>(null);
-  const [tools, setTools] = useState<null | string>(null);
+  const {
+    state: {
+      profession,
+      qualification,
+      tools
+    },
+    dispatch
+  } = useContext(GlobalContext);
+
 
   const resetFilter = () => {
-    setProfession(null);
-    setQualification(null);
+    dispatch(setProfession(null));
+    dispatch(setQualification(null));
   };
 
   useEffect(() => {
-    setTools(null);
+    dispatch(setTools(null));
   }, [qualification])
 
   return (
@@ -55,7 +63,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
             {/*FRONEND*/}
             <Column className="column">
               <Box
-                onClick={() => setProfession('frontend')}
+                onClick={() => dispatch(setProfession('frontend'))}
               >
                 <FrontIcon/>
                 <Title>FrontEnd</Title>
@@ -63,7 +71,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                 <Row className="home__row home__row--frontend">
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('junior')}
+                      onClick={() => dispatch(setQualification('junior'))}
                       className={`${qualification === 'junior' && 'active'}`}
                     >
                       <JuniorIcon/>
@@ -72,7 +80,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('middle')}
+                      onClick={() => dispatch(setQualification('middle'))}
                       className={`${qualification === 'middle' && 'active'}`}
                     >
                       <MiddleIcon/>
@@ -81,7 +89,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('senior')}
+                      onClick={() => dispatch(setQualification('senior'))}
                       className={`${qualification === 'senior' && 'active'}`}
                     >
                       <SeniorIcon/>
@@ -94,7 +102,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                 <Row className="home__row home__row--frontend">
                   <Column>
                     <HomeItem
-                      onClick={() => setTools('react')}
+                      onClick={() => dispatch(setTools('react'))}
                       className={`${tools === 'react' && 'active'}`}
                     >
                       <ReactIcon/>
@@ -102,7 +110,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setTools('vue')}
+                      onClick={() => dispatch(setTools('vue'))}
                       className={`${tools === 'vue' && 'active'}`}
                     >
                       <Vue/>
@@ -110,7 +118,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setTools('angular')}
+                      onClick={() => dispatch(setTools('angular'))}
                       className={`${tools === 'angular' && 'active'}`}
                     >
                       <Angular className="home__logo-angular"/>
@@ -132,7 +140,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
             {/*BACKEND*/}
             <Column className="column">
               <Box
-                onClick={() => setProfession('backend')}
+                onClick={() => dispatch(setProfession('backend'))}
               >
                 <BackendIcon/>
                 <Title>BackEnd</Title>
@@ -140,7 +148,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                 <Row className="home__row home__row--backend">
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('junior')}
+                      onClick={() => dispatch(setQualification('junior'))}
                       className={`${qualification === 'junior' && 'active'}`}
                     >
                       <JuniorIcon/>
@@ -149,7 +157,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('middle')}
+                      onClick={() => dispatch(setQualification('middle'))}
                       className={`${qualification === 'middle' && 'active'}`}
                     >
                       <MiddleIcon/>
@@ -158,7 +166,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('senior')}
+                      onClick={() => dispatch(setQualification('senior'))}
                       className={`${qualification === 'senior' && 'active'}`}
                     >
                       <SeniorIcon/>
@@ -171,7 +179,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                 <Row className="home__row home__row--backend">
                   <Column>
                     <HomeItem
-                      onClick={() => setTools('ruby')}
+                      onClick={() => dispatch(setTools('ruby'))}
                       className={`${tools === 'ruby' && 'active'}`}
                     >
                       <Ruby/>
@@ -179,7 +187,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setTools('php')}
+                      onClick={() => dispatch(setTools('php'))}
                       className={`${tools === 'php' && 'active'}`}
                     >
                       <Php/>
@@ -187,7 +195,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setTools('node')}
+                      onClick={() => dispatch(setTools('node'))}
                       className={`${tools === 'node' && 'active'}`}
                     >
                       <Nodejs/>
@@ -208,7 +216,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
             {/*MARKUP*/}
             <Column className="column">
               <Box
-                onClick={() => setProfession('markup')}
+                onClick={() => dispatch(setProfession('markup'))}
               >
                 <FullStackIcon/>
                 <Title>MarkUp</Title>
@@ -216,7 +224,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                 <Row className="home__row home__row--markup">
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('junior')}
+                      onClick={() => dispatch(setQualification('junior'))}
                       className={`${qualification === 'junior' && 'active'}`}
                     >
                       <JuniorIcon/>
@@ -225,7 +233,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('middle')}
+                      onClick={() => dispatch(setQualification('middle'))}
                       className={`${qualification === 'middle' && 'active'}`}
                     >
                       <MiddleIcon/>
@@ -234,7 +242,7 @@ const Home: React.FC<HomeProps> = ({className}) => {
                   </Column>
                   <Column>
                     <HomeItem
-                      onClick={() => setQualification('senior')}
+                      onClick={() => dispatch(setQualification('senior'))}
                       className={`${qualification === 'senior' && 'active'}`}
                     >
                       <SeniorIcon/>
@@ -242,7 +250,10 @@ const Home: React.FC<HomeProps> = ({className}) => {
                     </HomeItem>
                   </Column>
                 </Row>
-
+                {
+                  qualification &&
+                  <StyledLink to="/testing">Перейти к тестированию</StyledLink>
+                }
               </Box>
             </Column>
           </HomeRow>

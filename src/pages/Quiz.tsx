@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from "../components/Header";
 
 const Quiz: React.FC = () => {
     return (
         <div>
-            Test
+            <Header/>
         </div>
     );
 };
