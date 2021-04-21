@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import styled from "styled-components";
-import {GlobalContext} from "../reducer/reducer";
+import {GlobalContext} from "../store/reducer";
 import {Container, Row} from "../common/Layout";
 import Logo from './icons/logo.png';
 

@@ -15,13 +15,13 @@ import {ReactComponent as Nodejs} from './icons/nodejs.svg';
 import {ReactComponent as Ruby} from './icons/ruby.svg';
 import {ReactComponent as Php} from './icons/php.svg';
 import arrow from './icons/right-drawn-arrow.svg';
-import {GlobalContext} from '../reducer/reducer'
+import {GlobalContext} from '../store/reducer'
 import {
   Title,
   Box,
   BackNav
 } from "../components";
-import { setProfession, setQualification, setTools } from '../reducer/action-creators'
+import { setProfession, setQualification, setTools } from '../store/action-creators'
 
 type HomeProps = {
   className?: string

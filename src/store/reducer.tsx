@@ -1,5 +1,6 @@
-import React, {createContext, useEffect, useReducer} from 'react';
+import React, {createContext, useEffect } from 'react';
 import { useThunkReducer } from './thunkReduxer';
+import { toogleResults } from '../utils';
 import {
   SET_QUALIFICATION,
   SET_PROFESSION,
@@ -7,6 +8,7 @@ import {
   GET_QUIZES_START,
   GET_QUIZES_SUCCESS,
   GET_QUIZES_FAIL,
+  SET_QUIZ_RESULT,
 } from './action-creators'
 
 const initialState = {
@@ -15,22 +17,32 @@ const initialState = {
   tools: null,
   quizes: [],
   loading: false,
-  errors: false
+  errors: false,
+  results: []
 };
 
-type Quize = {
+export type AnswerType = {
+  text: string;
+  id: string;
+};
+
+export type QuizeType = {
   id: string;
   question: string;
-  answers: [
-      text: string,
-      id: string
-  ];
+  answers: Array<AnswerType>
+};
+
+export type ResultType = {
+  answer_id: string;
+  question_id: string;
 }
+
 type State = {
   profession: string;
   qualification: string;
   tools: string;
-  quizes: Array<Quize>
+  quizes: Array<QuizeType>;
+  results: Array<ResultType>;
 };
 
 const initialize = window.localStorage.getItem('store')
@@ -76,6 +88,11 @@ function reducer(state: State, action: Action) {
       return {
         ...state,
         errors: true
+      };
+    case SET_QUIZ_RESULT:
+      return {
+        ...state,
+        results: toogleResults(state.results, action.payload)
       };
     default:
       return {

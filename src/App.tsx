@@ -2,20 +2,19 @@ import React from 'react';
 import {GlobalStyle} from './common/GlobalStyles';
 import styled from "styled-components";
 import Home from './pages/Home';
-import Quiz from './pages/Quiz';
+import QuizPage from './pages/QuizPage';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
-import background from './images/background.jpg'
 
 function App() {
     return (
         <StyledApp>
             <Router>
                 <Switch>
-                    <Route path="/testing" component={Quiz} exact/>
+                    <Route path="/testing" component={QuizPage} exact/>
                     <Route path="/" component={Home} exact/>
                 </Switch>
             </Router>
