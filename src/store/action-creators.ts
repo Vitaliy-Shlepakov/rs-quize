@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {ResultType} from "./reducer";
+import {ResultType, StateType} from "./reducer";
 
 //action types
 const SET_PROFESSION = 'SET_PROFESSION';
@@ -12,6 +12,10 @@ const GET_QUIZES_SUCCESS = 'GET_QUIZES_SUCCESS';
 const GET_QUIZES_FAIL = 'GET_QUIZES_FAIL';
 
 const SET_QUIZ_RESULT = 'SET_QUIZ_RESULT';
+
+const SEND_RESULTS_START = 'SEND_RESULTS_START';
+const SEND_RESULTS_SUCCESS = 'SEND_RESULTS_SUCCESS';
+const SEND_RESULTS_FAIL = 'SEND_RESULTS_FAIL';
 
 //action creators
 
@@ -34,6 +38,21 @@ const setQuizResult = (payload: ResultType) => {
         type: SET_QUIZ_RESULT,
         payload
     })
+};
+
+const sendResultsStart = () => ({type: SEND_RESULTS_START});
+const sendResultsSuccess = () => ({type: SEND_RESULTS_SUCCESS});
+const sendResultsFail = () => ({type: SEND_RESULTS_FAIL});
+
+const sendResults = () => {
+    return (dispatch: React.Dispatch<any>, getState: StateType) => {
+        sendResultsStart()
+        axios.post('/test', {
+            results: getState.results
+        })
+            .then(() => sendResultsSuccess())
+            .catch(() => sendResultsFail())
+    }
 }
 
 const getQuizesStart = () => ({type: GET_QUIZES_START});
@@ -41,9 +60,19 @@ const getQuizesSuccess = (payload: any) => ({type: GET_QUIZES_SUCCESS, payload})
 const getQuizesFail = () => ({type: GET_QUIZES_FAIL});
 
 const getQuizes = () => {
-    return (dispatch: React.Dispatch<any>) => {
+    return (dispatch: React.Dispatch<any>, getState: StateType) => {
         dispatch(getQuizesStart());
-        axios.get('./api/quizes/list.json')
+        const profession = getState.profession;
+        const qualification = getState.qualification;
+        const tools = getState?.tools;
+
+        axios.get('./api/quizes/list.json', {
+            params: {
+                profession,
+                qualification,
+                tools
+            }
+        })
             .then(resp => {
                 // @ts-ignore
                 return setTimeout(() => dispatch(getQuizesSuccess(resp.data)), 2000);
@@ -62,10 +91,14 @@ export {
     GET_QUIZES_SUCCESS,
     GET_QUIZES_FAIL,
     SET_QUIZ_RESULT,
+    SEND_RESULTS_START,
+    SEND_RESULTS_SUCCESS,
+    SEND_RESULTS_FAIL,
 
     setProfession,
     setQualification,
     setTools,
     getQuizes,
-    setQuizResult
+    setQuizResult,
+    sendResults
 }

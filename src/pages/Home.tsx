@@ -389,7 +389,7 @@ const HomeItem = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)`
   display: inline-block;
   padding: 10px 20px;
   border-radius: 20px;

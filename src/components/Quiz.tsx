@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {QuizeType, ResultType} from "../store/reducer";
+import {AnswerType, QuizeType, ResultType} from "../store/reducer";
 import styled from "styled-components";
 import QuizOption from "./QuizOption";
 import { GlobalContext } from "../store/reducer";
@@ -14,9 +14,10 @@ const QuizStyled = styled.div`
   background: #fff;
   max-width: 500px;
   width: 100%;
+  flex-shrink: 0;
   padding: 20px 40px;
   border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(#222, .3);
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.1);
 
   & + & {
     margin-top: 40px;
@@ -34,13 +35,21 @@ const Quiz: React.FC<QuizeProps> = ({quiz, results}) => {
         }));
     };
 
+    const isSelected = (answer: AnswerType) => {
+        const currentQuiz = results.find(item => item.question_id === quiz.id);
+        if(currentQuiz) {
+            return answer.id === currentQuiz.answer_id
+        }
+       return false
+    };
+
     const renderQuizItems = () => {
         return quiz.answers.map(answer => (
             <QuizOption
                 option={answer}
                 key={answer.id}
                 changeQuizOption={changeQuizOption}
-                optionIsSelected={!!results.find(item => item.answer_id === answer.id)}
+                optionIsSelected={isSelected(answer)}
             />
         ))
     }

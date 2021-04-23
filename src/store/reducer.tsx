@@ -9,6 +9,9 @@ import {
   GET_QUIZES_SUCCESS,
   GET_QUIZES_FAIL,
   SET_QUIZ_RESULT,
+  SEND_RESULTS_START,
+  SEND_RESULTS_SUCCESS,
+  SEND_RESULTS_FAIL
 } from './action-creators'
 
 const initialState = {
@@ -18,7 +21,8 @@ const initialState = {
   quizes: [],
   loading: false,
   errors: false,
-  results: []
+  results: [],
+  resultsSendSuccess: null,
 };
 
 export type AnswerType = {
@@ -37,12 +41,13 @@ export type ResultType = {
   question_id: string;
 }
 
-type State = {
+export type StateType = {
   profession: string;
   qualification: string;
   tools: string;
   quizes: Array<QuizeType>;
   results: Array<ResultType>;
+  resultsSendSuccess: boolean | null;
 };
 
 const initialize = window.localStorage.getItem('store')
@@ -54,7 +59,7 @@ type Action = {
   payload?: any
 };
 
-function reducer(state: State, action: Action) {
+function reducer(state: StateType, action: Action) {
   switch (action.type) {
     case SET_PROFESSION:
       return {
@@ -72,6 +77,7 @@ function reducer(state: State, action: Action) {
         tools: action.payload
       };
     case GET_QUIZES_START:
+    case SEND_RESULTS_START:
       return {
         ...state,
         loading: true,
@@ -93,6 +99,16 @@ function reducer(state: State, action: Action) {
       return {
         ...state,
         results: toogleResults(state.results, action.payload)
+      };
+    case SEND_RESULTS_SUCCESS:
+      return {
+        ...state,
+        resultsSendSuccess: true,
+      };
+    case SEND_RESULTS_FAIL:
+      return {
+        ...state,
+        resultsSendSuccess: false,
       };
     default:
       return {
@@ -125,5 +141,6 @@ const GlobalProvider: React.FC = ({children}) => {
 export {
   reducer,
   GlobalContext,
-  GlobalProvider
+  GlobalProvider,
+
 }

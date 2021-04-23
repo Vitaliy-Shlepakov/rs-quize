@@ -5,45 +5,69 @@ import {
     Title,
 } from "../components";
 import { getQuizes } from '../store/action-creators'
-import {GlobalContext, ResultType} from "../store/reducer";
+import {GlobalContext } from "../store/reducer";
 import Loader from "../components/Loader";
 import Quiz from "../components/Quiz";
 import { QuizeType } from "../store/reducer";
+import styled from "styled-components";
+import { Button } from '../components/Button';
+import { sendResults } from '../store/action-creators';
+
+const QuizPageStyled = styled.div`
+  padding: 80px 0;
+`;
+const QuizPageBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const QuizPage: React.FC = () => {
 
-    const {state, dispatch} = useContext(GlobalContext);
+    const { state, dispatch } = useContext(GlobalContext);
+
     useEffect(() => {
         dispatch(getQuizes())
     }, []);
 
     const renderQuizes = () => {
         const { quizes, results } = state;
-        return quizes.map((quiz: QuizeType, result: ResultType) => {
+        return quizes.map((quiz: QuizeType) => {
             return (
-                <Row justify="center" key={quiz.id}>
-                    <Quiz
-                        quiz={quiz}
-                        results={results}
-                    />
-                </Row>
+                <Quiz
+                    key={quiz.id}
+                    quiz={quiz}
+                    results={results}
+                />
             )
         })
-    }
+    };
+
+    const handleClick = () => { dispatch(sendResults()) }
 
     return (
         <div>
             <Header/>
             <Container>
-                <Title>Выберите правильные варианты ответа</Title>
-                {
-                    state.loading
-                    ?  <Row justify="center">
-                            <Loader/>
-                        </Row>
-                    : renderQuizes()
-                }
+                <QuizPageStyled>
+                    <Title>Выберите правильные варианты ответа</Title>
+                    {
+                        state.loading
+                            ?  <Row justify="center">
+                                    <Loader/>
+                                </Row>
+                            : <QuizPageBody >
+                                { renderQuizes() }
+                                <Button
+                                    style={{marginTop: '50px'}}
+                                    onClick={handleClick}
+                                >
+                                    Отправить результат
+                                </Button>
+                            </QuizPageBody>
+                    }
 
+                </QuizPageStyled>
             </Container>
         </div>
     );
